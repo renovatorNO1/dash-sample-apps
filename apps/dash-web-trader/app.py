@@ -29,22 +29,13 @@ DATA_PATH = PATH.joinpath("data").resolve()
 
 # Loading historical tick data
 currency_pair_data = {
-    "EURUSD": pd.read_csv(
-        DATA_PATH.joinpath("EURUSD.csv"), index_col=1, parse_dates=["Date"]
-    ),
-    "USDJPY": pd.read_csv(
-        DATA_PATH.joinpath("USDJPY.csv"), index_col=1, parse_dates=["Date"]
-    ),
-    "GBPUSD": pd.read_csv(
-        DATA_PATH.joinpath("GBPUSD.csv"), index_col=1, parse_dates=["Date"]
-    ),
-    "USDCHF": pd.read_csv(
-        DATA_PATH.joinpath("USDCHF.csv"), index_col=1, parse_dates=["Date"]
+    "SILVERUSD": pd.read_csv(
+        DATA_PATH.joinpath("SILVERUSD.csv"), index_col=1, parse_dates=["Date"]
     ),
 }
 
 # Currency pairs
-currencies = ["EURUSD", "USDCHF", "USDJPY", "GBPUSD"]
+currencies = ["SILVERUSD"]
 
 # API Requests for news div
 news_requests = requests.get(
@@ -166,7 +157,8 @@ def get_row(data):
                                 id=current_row[0] + "Button_chart",
                                 children="Chart",
                                 n_clicks=1
-                                if current_row[0] in ["EURUSD", "USDCHF"]
+                                # This is for display of the chart in the middle of the page
+                                if current_row[0] in ["SILVERUSD"]
                                 else 0,
                             )
                         ],
@@ -889,7 +881,7 @@ app.layout = html.Div(
                 ),
             ],
         ),
-        # Hidden div that stores all clicked charts (EURUSD, USDCHF, etc.)
+        # Hidden div that stores all clicked charts (EURUSD, SILVERUSD, etc.)
         html.Div(id="charts_clicked", style={"display": "none"}),
         # Hidden div for each pair that stores orders
         html.Div(
